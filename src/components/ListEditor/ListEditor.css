@@ -1,0 +1,22 @@
+.ListEditor {
+  width: 912px;
+  margin: auto;
+}
+
+.ListEditor h1 {
+  color: #757575;
+}
+
+.ListEditor-grid-header {
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr;
+  background: white;
+}
+
+.ListEditor-grid-header > div {
+  color: #757575;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 500;
+  padding: 16px 24px;
+}

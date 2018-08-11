@@ -1,0 +1,43 @@
+.RowEditor-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr;
+  background: white;
+}
+
+.RowEditor-container > div {
+  border-top: 1px solid #dddddd;
+  color: #505050;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  padding: 24px;
+}
+
+.RowEditor-container > div.RowEditor-actions {
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+  align-items: center;
+}
+
+.RowEditor-button {
+  border-width: 0px;
+  padding: 12px 24px;
+  background: #ddd;
+  line-height: 16px;
+  font-weight: 500;
+}
+
+.RowEditor-button.button-primary {
+  color: #ffffff;
+  background: #07f;
+}
+
+.RowEditor-button.button-primary-text {
+  color: #07f;
+}
+
+.RowEditor-button.disabled {
+  color: #888;
+  background: #ccc;
+}
