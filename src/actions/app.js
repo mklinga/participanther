@@ -70,3 +70,8 @@ export const updateParticipant = participant => ({
   type: ActionTypes.UPDATE_PARTICIPANT,
   participant
 });
+
+export const deleteParticipant = id => ({
+  type: ActionTypes.DELETE_PARTICIPANT,
+  id
+});

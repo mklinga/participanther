@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import { MdEdit, MdDelete } from 'react-icons/md';
 
 import { LIST } from '../../../constants';
-import { updateParticipant as updateParticipantAction } from '../../../actions';
+import {
+  updateParticipant as updateParticipantAction,
+  deleteParticipant as deleteParticipantAction
+} from '../../../actions';
 import RowEditor from '../RowEditor';
 
 import './ParticipantRow.css';
@@ -27,7 +30,8 @@ export class ParticipantRow extends React.Component {
   };
 
   deleteRow = () => {
-    // todo
+    const { deleteParticipant, participant } = this.props;
+    deleteParticipant(participant.id);
   };
 
   render() {
@@ -62,7 +66,8 @@ export class ParticipantRow extends React.Component {
 
 const mapStateToProps = undefined;
 const mapDispatchToProps = dispatch => ({
-  updateParticipant: participant => dispatch(updateParticipantAction(participant))
+  updateParticipant: participant => dispatch(updateParticipantAction(participant)),
+  deleteParticipant: participant => dispatch(deleteParticipantAction(participant))
 });
 
 export default connect(

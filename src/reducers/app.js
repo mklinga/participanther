@@ -21,6 +21,12 @@ const rootReducer = (state = initialState, action) => {
         )
       };
     }
+    case ActionTypes.DELETE_PARTICIPANT: {
+      return {
+        ...state,
+        participants: state.participants.filter(participant => participant.id !== action.id)
+      };
+    }
     default:
       return state;
   }
