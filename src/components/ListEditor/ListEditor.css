@@ -5,6 +5,9 @@
 
 .ListEditor h1 {
   color: #757575;
+  margin: 64px 0 32px 0;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .ListEditor-grid-header {
