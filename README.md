@@ -8,3 +8,16 @@ Managing your participants has never been as fun.
 $ npm install
 $ npm run start
 ```
+
+
+## Lint
+
+```
+$ npm run lint
+```
+
+## Test
+
+```
+$ npm run test
+```
