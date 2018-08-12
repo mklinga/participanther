@@ -21,12 +21,12 @@ export default class RowEditor extends React.Component {
 
   componentDidMount() {
     const { participant } = this.props;
-    this.setState({ participant });
+    this.setState({ participant, isValid: validate(participant) });
   }
 
   componentWillReceiveProps(nextProps) {
     const { participant } = nextProps;
-    this.setState({ participant });
+    this.setState({ participant, isValid: validate(participant) });
   }
 
   onCancel = () => {
@@ -50,9 +50,14 @@ export default class RowEditor extends React.Component {
       `RowEditor-button ${extraClass} ${isValid ? '' : 'disabled'}`;
 
     switch (action) {
-      case LIST.CREATE_NEW:
+      case LIST.ADD_NEW:
         return (
-          <button type="button" className={getClassName()} disabled={!isValid}>
+          <button
+            type="button"
+            className={getClassName()}
+            disabled={!isValid}
+            onClick={this.onSave}
+          >
             Add New
           </button>
         );
@@ -84,11 +89,14 @@ export default class RowEditor extends React.Component {
 
   changeValue = field => (event) => {
     const { participant } = this.state;
+    const nextParticipant = {
+      ...participant,
+      [field]: event.target.value
+    };
+
     this.setState({
-      participant: {
-        ...participant,
-        [field]: event.target.value
-      }
+      participant: nextParticipant,
+      isValid: validate(nextParticipant)
     });
   };
 
@@ -101,13 +109,28 @@ export default class RowEditor extends React.Component {
     return (
       <div className="RowEditor-container">
         <div>
-          <input value={name} onChange={this.changeValue('name')} />
+          <input
+            type="text"
+            placeholder="Full name"
+            value={name}
+            onChange={this.changeValue('name')}
+          />
         </div>
         <div>
-          <input value={email} onChange={this.changeValue('email')} />
+          <input
+            type="email"
+            placeholder="E-mail address"
+            value={email}
+            onChange={this.changeValue('email')}
+          />
         </div>
         <div>
-          <input value={phoneNumber} onChange={this.changeValue('phoneNumber')} />
+          <input
+            type="tel"
+            placeholder="Phone number"
+            value={phoneNumber}
+            onChange={this.changeValue('phoneNumber')}
+          />
         </div>
         <div className="RowEditor-actions">
           {actions.map(action => (

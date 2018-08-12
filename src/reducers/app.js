@@ -21,6 +21,12 @@ const rootReducer = (state = initialState, action) => {
         )
       };
     }
+    case ActionTypes.ADD_NEW_PARTICIPANT: {
+      return {
+        ...state,
+        participants: [action.participant].concat(state.participants)
+      };
+    }
     case ActionTypes.DELETE_PARTICIPANT: {
       return {
         ...state,

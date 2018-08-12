@@ -1,5 +1,11 @@
 import ActionTypes from './ActionTypes';
 
+let PARTICIPANT_ID = 0;
+const getNextId = () => {
+  PARTICIPANT_ID += 1;
+  return PARTICIPANT_ID;
+};
+
 const FIRST_NAMES = [
   'Maria',
   'Markus',
@@ -42,16 +48,14 @@ const generateRandomPhoneNumber = (digits = 7) => {
 
 const getRandomFrom = array => array[Math.floor(Math.random() * array.length)];
 
-let id = 0;
 const generateParticipant = () => {
-  id += 1;
   const firstName = getRandomFrom(FIRST_NAMES);
   const lastName = getRandomFrom(LAST_NAMES);
   const emailProvider = getRandomFrom(EMAIL_PROVIDERS);
   const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}@${emailProvider}`;
   const phoneNumber = `${getRandomFrom(PHONE_OPERATOR_CODES)}${generateRandomPhoneNumber()}`;
   return {
-    id,
+    id: getNextId(),
     name: `${firstName} ${lastName}`,
     email,
     phoneNumber
@@ -74,4 +78,12 @@ export const updateParticipant = participant => ({
 export const deleteParticipant = id => ({
   type: ActionTypes.DELETE_PARTICIPANT,
   id
+});
+
+export const addNewParticipant = participant => ({
+  type: ActionTypes.ADD_NEW_PARTICIPANT,
+  participant: {
+    id: getNextId(),
+    ...participant
+  }
 });
