@@ -1,3 +1,7 @@
 .AddNew-container {
   margin-bottom: 12px;
 }
+
+.AddNew-container .RowEditor-container > div {
+  border-top: 0;
+}

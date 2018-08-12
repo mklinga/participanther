@@ -2,14 +2,13 @@ import React from 'react';
 
 import ListEditor from './components/ListEditor';
 
-import logo from './logo.svg';
 import './App.css';
 
 const App = () => (
   <div className="App">
     <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
       <h1 className="App-title">
+        <div className="App-logo" />
         {'Nord Software'}
       </h1>
     </header>
