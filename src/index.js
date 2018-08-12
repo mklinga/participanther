@@ -8,8 +8,6 @@ import './index.css';
 import App from './App';
 import rootReducer from './reducers';
 
-import registerServiceWorker from './registerServiceWorker';
-
 const store = createStore(rootReducer);
 
 ReactDOM.render(
@@ -18,4 +16,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
-registerServiceWorker();
