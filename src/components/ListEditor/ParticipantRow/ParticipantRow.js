@@ -1,29 +1,34 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { MdEdit, MdDelete } from 'react-icons/md';
-import { LIST } from '../../../constants';
 
+import { LIST } from '../../../constants';
+import { updateParticipant as updateParticipantAction } from '../../../actions';
 import RowEditor from '../RowEditor';
 
 import './ParticipantRow.css';
 
-export default class ParticipantRow extends React.Component {
+export class ParticipantRow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       editing: false
     };
-
-    this.toggleEdit = this.toggleEdit.bind(this);
-    this.deleteRow = this.deleteRow.bind(this);
   }
 
-  toggleEdit() {
+  updateRow = (participant) => {
+    const { updateParticipant } = this.props;
+    updateParticipant(participant);
+    this.toggleEdit();
+  };
+
+  toggleEdit = () => {
     this.setState(state => ({ editing: !state.editing }));
-  }
+  };
 
-  deleteRow() {
+  deleteRow = () => {
     // todo
-  }
+  };
 
   render() {
     const { participant } = this.props;
@@ -36,6 +41,7 @@ export default class ParticipantRow extends React.Component {
           participant={participant}
           actions={[CANCEL, UPDATE]}
           onCancel={this.toggleEdit}
+          onSave={this.updateRow}
         />
       );
     }
@@ -53,3 +59,13 @@ export default class ParticipantRow extends React.Component {
     );
   }
 }
+
+const mapStateToProps = undefined;
+const mapDispatchToProps = dispatch => ({
+  updateParticipant: participant => dispatch(updateParticipantAction(participant))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ParticipantRow);

@@ -3,17 +3,30 @@ import React from 'react';
 import { LIST } from '../../../constants';
 import './RowEditor.css';
 
-const validate = (participant) => {
-  console.log(participant);
-  return true;
-};
+const validate = participant =>
+  !!(participant.name && participant.email && participant.phoneNumber);
 
 export default class RowEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isValid: validate(props.participant)
+      isValid: validate(props.participant),
+      participant: {
+        name: '',
+        email: '',
+        phoneNumber: ''
+      }
     };
+  }
+
+  componentDidMount() {
+    const { participant } = this.props;
+    this.setState({ participant });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { participant } = nextProps;
+    this.setState({ participant });
   }
 
   onCancel = () => {
@@ -23,21 +36,34 @@ export default class RowEditor extends React.Component {
     }
   };
 
+  onSave = () => {
+    const { onSave, participant: originalParticipant } = this.props;
+    const { participant: modifiedParticipant } = this.state;
+    if (onSave) {
+      onSave({ ...originalParticipant, ...modifiedParticipant });
+    }
+  };
+
   getActionButton = (action) => {
-    const disabled = !this.state.isValid;
+    const { isValid } = this.state;
     const getClassName = extraClass =>
-      `RowEditor-button ${extraClass} ${disabled ? 'disabled' : ''}`;
+      `RowEditor-button ${extraClass} ${isValid ? '' : 'disabled'}`;
 
     switch (action) {
       case LIST.CREATE_NEW:
         return (
-          <button type="button" className={getClassName()} disabled={disabled}>
+          <button type="button" className={getClassName()} disabled={!isValid}>
             Add New
           </button>
         );
       case LIST.UPDATE:
         return (
-          <button disabled={disabled} type="button" className={getClassName('button-primary')}>
+          <button
+            disabled={!isValid}
+            type="button"
+            className={getClassName('button-primary')}
+            onClick={this.onSave}
+          >
             Save
           </button>
         );
@@ -56,15 +82,33 @@ export default class RowEditor extends React.Component {
     }
   };
 
+  changeValue = field => (event) => {
+    const { participant } = this.state;
+    this.setState({
+      participant: {
+        ...participant,
+        [field]: event.target.value
+      }
+    });
+  };
+
   render() {
-    const { participant, actions } = this.props;
-    const { isValid } = this.state;
+    const { actions } = this.props;
+    const {
+      participant: { name, email, phoneNumber }
+    } = this.state;
 
     return (
       <div className="RowEditor-container">
-        <div>{participant.name}</div>
-        <div>{participant.email}</div>
-        <div>{participant.phoneNumber}</div>
+        <div>
+          <input value={name} onChange={this.changeValue('name')} />
+        </div>
+        <div>
+          <input value={email} onChange={this.changeValue('email')} />
+        </div>
+        <div>
+          <input value={phoneNumber} onChange={this.changeValue('phoneNumber')} />
+        </div>
         <div className="RowEditor-actions">
           {actions.map(action => (
             <span key={action}>{this.getActionButton(action)}</span>

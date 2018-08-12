@@ -65,3 +65,8 @@ export const generatePeople = () => ({
   type: ActionTypes.GENERATE_PEOPLE,
   participants: generateParticipants(20)
 });
+
+export const updateParticipant = participant => ({
+  type: ActionTypes.UPDATE_PARTICIPANT,
+  participant
+});

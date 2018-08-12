@@ -12,6 +12,15 @@ const rootReducer = (state = initialState, action) => {
         participants: action.participants
       };
     }
+    case ActionTypes.UPDATE_PARTICIPANT: {
+      return {
+        ...state,
+        participants: state.participants.map(
+          participant =>
+            (participant.id === action.participant.id ? action.participant : participant)
+        )
+      };
+    }
     default:
       return state;
   }

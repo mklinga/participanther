@@ -11,6 +11,10 @@
   line-height: 24px;
   font-weight: 400;
   padding: 24px;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .ParticipantRow-container > div.ParticipantRow-actions {
